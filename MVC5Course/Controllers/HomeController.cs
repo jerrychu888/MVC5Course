@@ -22,6 +22,9 @@ namespace MVC5Course.Controllers
 
         public ActionResult Contact()
         {
+
+            
+            //JC: test
             ViewBag.Message = "Your contact page.";
 
             return View();

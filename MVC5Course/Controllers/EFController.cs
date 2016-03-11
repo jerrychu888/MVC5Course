@@ -4,6 +4,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace MVC5Course.Models
 {
@@ -88,6 +89,12 @@ namespace MVC5Course.Models
             return RedirectToAction("Index");
 
            
+        }
+
+        public ActionResult QueryPlan()
+        {
+            var data = db.Product.Include(s => s.OrderLine).ToList();
+            return View(data);
         }
     }
 

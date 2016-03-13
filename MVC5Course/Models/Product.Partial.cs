@@ -17,11 +17,12 @@ namespace MVC5Course.Models
         [StringLength(80, ErrorMessage="欄位長度不得大於 80 個字元")]
         public string ProductName { get; set; }
         [Required]
-        [尾數不可以為零(ErrorMessage = "尾數不可以為零")]
+        //[尾數不可以為零(ErrorMessage = "尾數不可以為零")]
         public Nullable<decimal> Price { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<decimal> Stock { get; set; }
-    
+        public bool isDelete { get; set; }
+
         public virtual ICollection<OrderLine> OrderLine { get; set; }
     }
 }

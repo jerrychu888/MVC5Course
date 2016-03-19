@@ -17,11 +17,32 @@ namespace MVC5Course.Controllers
         
         // GET: Products
         [計算action執行時間]
-        public ActionResult Index()
+        public ActionResult Index(int? id,bool? isActive , string keyword)
         {
             //return View(db.Product.ToList());
-            return View(repo.All().Take(5).ToList());
+            if (id.HasValue)
+            {
+                ViewBag.id = id;
+            }
+            //return View(repo.All().Take(5).ToList());
+            var items = new List<SelectListItem>();
+            items.Add(new SelectListItem() { Text = "Active", Value = "true" });
+            items.Add(new SelectListItem() { Text = "inActive", Value = "false" });
+            ViewData["isActive"] = new SelectList(items,"Value","Text");
 
+            var data = repo.All(true);
+
+            if (isActive.HasValue)
+            {
+                data = data.Where(p => p.Active == isActive.Value).Take(20);
+            }
+
+            if (!String.IsNullOrEmpty(keyword))
+            {
+                data = data.Where(p => p.ProductName.Contains(keyword));
+            }
+            
+            return View(data);
         }
 
         [HttpPost]
@@ -157,6 +178,13 @@ namespace MVC5Course.Controllers
             //db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult ShowDetail(int id)
+        {
+            
+            return RedirectToAction("Index",new { id = id });
+        }
+
 
         protected override void Dispose(bool disposing)
         {

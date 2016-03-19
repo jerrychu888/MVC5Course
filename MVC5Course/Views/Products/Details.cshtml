@@ -44,6 +44,8 @@
 
     </dl>
 </div>
+    @Html.Action("Index","OrderLines",new { productId = Model.ProductId })
+    @*@Html.Partial("../OrderLines/Index", Model.OrderLine)*@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
     @Html.ActionLink("Back to List", "Index")
